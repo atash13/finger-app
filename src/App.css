@@ -1,0 +1,128 @@
+.app {
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  color: white;
+  padding: 10px 20px;
+  position: fixed;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.menu li {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.credits-button {
+  background-color: #900;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.language-select {
+  padding: 5px;
+  background-color: #900;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.content {
+  display: flex;
+  margin-top: 10px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px; /* Header'ın altında olacak şekilde konumlandır */
+  left: 0;
+  width: 200px; /* Sidebar genişliği */
+  height: calc(100vh - 60px); /* Header'dan geri kalan tüm yüksekliği kapla */
+  background-color: #8B0000; /* Sidebar arka plan rengi */
+  overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu ekle */
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Sidebar diğer elementlerin üstünde */
+  display: flex;
+  flex-direction: column; /* Butonların alt alta sıralanmasını sağlar */
+}
+
+.category-button {
+  background-color: #900;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  text-align: left;
+  
+}
+
+.category-button:hover {
+  background-color: #b00;
+}
+
+.main-content {
+  margin-left: 200px; /* Sidebar genişliği kadar boşluk bırak */
+  padding: 10px;
+  flex: 1; /* Kalan alanı doldur */
+  overflow-y: auto; /* Dikey kaydırma */
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  justify-items: center;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.wrapper {
+  display: flex;
+  margin-top: 60px; /* Header yüksekliği kadar boşluk bırak */
+}

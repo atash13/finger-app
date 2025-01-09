@@ -1,0 +1,7 @@
+.card-list {
+  display: grid; /* Kartlar için grid düzeni */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ekran boyutuna uygun olarak kolon sayısını otomatik ayarla */
+  gap: 15px; /* Kartlar arasındaki boşluk */
+  justify-items: center; /* Kartları yatay olarak ortala */
+  padding: 10px; /* Kenarlardan biraz boşluk bırak */
+}

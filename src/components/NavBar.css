@@ -1,0 +1,57 @@
+.navbar {
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* Header yüksekliği */
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000
+    
+  }
+  
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+  }
+  
+  .menu li {
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .credits-button {
+    background-color: #900;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  .language-select {
+    padding: 5px;
+    background-color: #900;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
