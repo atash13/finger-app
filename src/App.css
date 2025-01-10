@@ -2,15 +2,7 @@
   font-family: Arial, sans-serif;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #000;
-  color: white;
-  padding: 10px 20px;
-  position: fixed;
-}
+
 
 .logo {
   font-size: 20px;
@@ -55,7 +47,7 @@
 
 .content {
   display: flex;
-  margin-top: 10px;
+  margin-top: 60px;
 }
 
 .sidebar {
