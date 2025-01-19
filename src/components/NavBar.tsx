@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import EmailIcon from "@mui/icons-material/Email";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Menu, MenuItem, Button } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,19 +23,21 @@ const Navbar: React.FC = () => {
     <nav className="navbar">
       <div className="logo">Finger Chat</div>
       <ul className="menu">
-        <li>Live Cams</li>
+        <li onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+          Live Cams
+        </li>
         <li>New Models</li>
         <li>Promotions</li>
         <li>Club Elite</li>
         <li>Top Members</li>
         <li>
-          <EmojiEventsIcon style={{ color: "white" }}></EmojiEventsIcon>
+          <EmojiEventsIcon style={{ color: "white" }} />
         </li>
         <li>
-          <EmailIcon></EmailIcon>
+          <EmailIcon />
         </li>
         <li>
-          <FavoriteIcon></FavoriteIcon>
+          <FavoriteIcon />
         </li>
         <li>
           <button className="credits-button">Get Credits</button>

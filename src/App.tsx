@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/NavBar";
+import Chat from "./Chat";
 import "./App.css";
+import CardList from "./components/CardList";
 
 interface Image {
   id: string;
@@ -8,24 +16,24 @@ interface Image {
   author: string;
 }
 
+const categories: string[] = [
+  "Exclusive",
+  "Certified",
+  "Girl",
+  "Hot Flirt",
+  "Soul Mate",
+  "Mature",
+  "New Models",
+  "Amateur",
+  "Fetish",
+  "Transgirl",
+  "Lesbian",
+  "Couple",
+];
+
 const App: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
-  const categories: string[] = [
-    "Exclusive",
-    "Certified",
-    "Girl",
-    "Hot Flirt",
-    "Soul Mate",
-    "Mature",
-    "New Models",
-    "Amateur",
-    "Fetish",
-    "Transgirl",
-    "Lesbian",
-    "Couple",
-  ];
 
-  // Fetch images from API
   useEffect(() => {
     fetch("https://picsum.photos/v2/list?page=1&limit=100")
       .then((response) => response.json())
@@ -34,28 +42,34 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="content">
-        <div className="sidebar">
-          {categories.map((category, index) => (
-            <button key={index} className="category-button">
-              {category}
-            </button>
-          ))}
-        </div>
-        <div className="main-content">
-          <div className="card-list">
-            {images.map((image) => (
-              <div className="card" key={image.id}>
-                <img src={image.download_url} alt={image.author} />
-                <h3>{image.author}</h3>
-              </div>
-            ))}
-          </div>
+    <Router>
+      <div className="app">
+        <Navbar />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<MainLayout images={images} />} />
+            <Route path="/chat/:title" element={<Chat />} />
+          </Routes>
         </div>
       </div>
-    </div>
+    </Router>
+  );
+};
+
+const MainLayout: React.FC<{ images: Image[] }> = ({ images }) => {
+  return (
+    <>
+      <div className="sidebar">
+        {categories.map((category, index) => (
+          <button key={index} className="category-button">
+            {category}
+          </button>
+        ))}
+      </div>
+      <div className="main-content">
+        <CardList images={images} />
+      </div>
+    </>
   );
 };
 
