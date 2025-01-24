@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,9 +6,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import Navbar from "./components/NavBar";
-import Chat from "./Chat";
 import "./App.css";
-import CardList from "./components/CardList";
+const Chat = lazy(() => import("./Chat")); // Lazy load Chat
+const CardList = lazy(() => import("./components/CardList")); // Lazy load CardList
 
 interface Image {
   id: string;
@@ -35,7 +35,7 @@ const App: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
-    fetch("https://picsum.photos/v2/list?page=1&limit=100")
+    fetch("https://picsum.photos/v2/list?page=1&limit=300")
       .then((response) => response.json())
       .then((data) => setImages(data))
       .catch((error) => console.error("Error fetching images:", error));
@@ -46,10 +46,12 @@ const App: React.FC = () => {
       <div className="app">
         <Navbar />
         <div className="content">
-          <Routes>
-            <Route path="/" element={<MainLayout images={images} />} />
-            <Route path="/chat/:title" element={<Chat />} />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<MainLayout images={images} />} />
+              <Route path="/chat/:title" element={<Chat />} />
+            </Routes>
+          </Suspense>
         </div>
       </div>
     </Router>
@@ -67,7 +69,9 @@ const MainLayout: React.FC<{ images: Image[] }> = ({ images }) => {
         ))}
       </div>
       <div className="main-content">
-        <CardList images={images} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <CardList images={images} />
+        </Suspense>
       </div>
     </>
   );
