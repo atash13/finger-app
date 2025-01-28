@@ -12,14 +12,14 @@ interface Image {
 
 interface CardListProps {
   images: Image[];
+  columns: number;
 }
 
-const CardList: React.FC<CardListProps> = ({ images }) => {
+const CardList: React.FC<CardListProps> = ({ images, columns }) => {
   const navigate = useNavigate();
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [visibleImages, setVisibleImages] = useState<number>(10); // Başlangıçta 10 resim göster
+  const [visibleImages, setVisibleImages] = useState<number>(10);
 
-  // URL için başlık formatlama fonksiyonu
   const formatTitleForURL = (title: string) => {
     return title
       .toLowerCase()
@@ -27,12 +27,11 @@ const CardList: React.FC<CardListProps> = ({ images }) => {
       .replace(/[^a-z0-9-]/g, "");
   };
 
-  // Intersection Observer ile lazy loading
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setVisibleImages((prev) => prev + 40); // 10 resim daha yükle
+          setVisibleImages((prev) => prev + 40);
         }
       },
       { threshold: 1.0 }
@@ -47,7 +46,15 @@ const CardList: React.FC<CardListProps> = ({ images }) => {
   }, []);
 
   return (
-    <div className="card-list">
+    <div
+      className="card-list"
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        gap: "15px",
+        justifyItems: "center",
+      }}
+    >
       {images.slice(0, visibleImages).map((image) => (
         <div
           className="card"
@@ -59,18 +66,16 @@ const CardList: React.FC<CardListProps> = ({ images }) => {
           }
           style={{ cursor: "pointer" }}
         >
-          {/* Lazy Load Image Component */}
           <LazyLoadImage
             src={image.download_url}
             alt={image.author}
-            effect="blur" // Bulanık yükleme efekti
+            effect="blur"
             width="100%"
-            height="auto"
+            height="100%"
           />
           <h3>{image.author}</h3>
         </div>
       ))}
-      {/* Sayfanın sonunda yükleme tetikleyicisi */}
       <div id="load-more" style={{ height: "20px" }}></div>
     </div>
   );

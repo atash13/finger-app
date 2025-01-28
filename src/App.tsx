@@ -1,14 +1,10 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import "./App.css";
-const Chat = lazy(() => import("./Chat")); // Lazy load Chat
-const CardList = lazy(() => import("./components/CardList")); // Lazy load CardList
+
+const Chat = lazy(() => import("./Chat"));
+const CardList = lazy(() => import("./components/CardList"));
 
 interface Image {
   id: string;
@@ -33,6 +29,7 @@ const categories: string[] = [
 
 const App: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
+  const [columns, setColumns] = useState<number>(7); // Varsayılan olarak 7 sütun
 
   useEffect(() => {
     fetch("https://picsum.photos/v2/list?page=1&limit=300")
@@ -48,7 +45,16 @@ const App: React.FC = () => {
         <div className="content">
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-              <Route path="/" element={<MainLayout images={images} />} />
+              <Route
+                path="/"
+                element={
+                  <MainLayout
+                    images={images}
+                    columns={columns}
+                    setColumns={setColumns}
+                  />
+                }
+              />
               <Route path="/chat/:title" element={<Chat />} />
             </Routes>
           </Suspense>
@@ -58,7 +64,11 @@ const App: React.FC = () => {
   );
 };
 
-const MainLayout: React.FC<{ images: Image[] }> = ({ images }) => {
+const MainLayout: React.FC<{
+  images: Image[];
+  columns: number;
+  setColumns: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ images, columns, setColumns }) => {
   return (
     <>
       <div className="sidebar">
@@ -69,10 +79,26 @@ const MainLayout: React.FC<{ images: Image[] }> = ({ images }) => {
         ))}
       </div>
       <div className="main-content">
+        <div className="category-name">
+          <div className="category-information">Girl</div>
+          <div className="button-container">
+            <button onClick={() => setColumns(8)}>8 Kolon</button>
+            <button onClick={() => setColumns(6)}>6 Kolon</button>
+            <button onClick={() => setColumns(3)}>3 Kolon</button>
+          </div>
+        </div>
         <Suspense fallback={<div>Loading...</div>}>
-          <CardList images={images} />
+          <CardList images={images} columns={columns} />
         </Suspense>
       </div>
+      <style>
+        {`.card-list {
+            display: grid;
+            grid-template-columns: repeat(${columns}, 1fr);
+            gap: 20px;
+            padding: 20px;
+          }`}
+      </style>
     </>
   );
 };
