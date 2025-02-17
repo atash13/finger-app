@@ -17,6 +17,7 @@
 
   /* Video bölümü */
 .video-section {
+  margin-top: 10px;
   position: relative;
   background-color: black;
   height: 60vh;
@@ -53,7 +54,7 @@
 .chat-box {
   display: flex;
   flex-direction: column;
-  height: 250px;
+  height: 20vh;
   border: 1px solid #e2e8f0;
   border-radius: 5px;
   padding: 10px;
