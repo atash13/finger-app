@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import "./Chat.css";
+import LiveVideo from "./LiveVideo";
 
 const Chat: React.FC = () => {
   const location = useLocation();
@@ -29,10 +30,7 @@ const Chat: React.FC = () => {
         <div className="chat-video-container">
           {/* video bölümü*/}
           <div className="video-section">
-            <video autoPlay muted playsInline>
-              <source src="/sample-video.mp4" type="video/mp4" />
-              Tarayıcınız video etiketini desteklemiyor.
-            </video>
+            <LiveVideo />
             <div className="video-author">
               {image?.author || "Unknown Author"}
             </div>
