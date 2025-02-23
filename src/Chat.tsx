@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import "./Chat.css";
 import LiveVideo from "./LiveVideo";
+import YouTubePlayer from "./YouTubePlayer";
 
 const Chat: React.FC = () => {
   const location = useLocation();
@@ -30,7 +31,7 @@ const Chat: React.FC = () => {
         <div className="chat-video-container">
           {/* video bölümü*/}
           <div className="video-section">
-            <LiveVideo />
+            <YouTubePlayer />
             <div className="video-author">
               {image?.author || "Unknown Author"}
             </div>

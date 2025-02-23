@@ -5,11 +5,15 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import EmailIcon from "@mui/icons-material/Email";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Menu, MenuItem } from "@mui/material";
+import RegisterModal from "../RegisterModal";
+import LoginModal from "../Loginmodal";
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,6 +51,30 @@ const Navbar: React.FC = () => {
             <option value="EN">EN</option>
             <option value="TR">TR</option>
           </select>
+        </li>
+        <li>
+          <button
+            className="credits-button"
+            onClick={() => setIsRegisterOpen(true)}
+          >
+            Register
+          </button>
+          <RegisterModal
+            open={isRegisterOpen}
+            handleClose={() => setIsRegisterOpen(false)}
+          />
+        </li>
+        <li>
+          <button
+            className="credits-button"
+            onClick={() => setIsLoginOpen(true)}
+          >
+            Login
+          </button>
+          <LoginModal
+            open={isLoginOpen}
+            handleClose={() => setIsLoginOpen(false)}
+          />
         </li>
         <li>
           <button
