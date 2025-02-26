@@ -4,7 +4,7 @@ import "./NavBar.css";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import EmailIcon from "@mui/icons-material/Email";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem, TextField } from "@mui/material";
 import RegisterModal from "../RegisterModal";
 import LoginModal from "../Loginmodal";
 
@@ -62,18 +62,30 @@ const Navbar: React.FC = () => {
           <RegisterModal
             open={isRegisterOpen}
             handleClose={() => setIsRegisterOpen(false)}
+            openLogin={() => setIsLoginOpen(true)}
           />
         </li>
         <li>
-          <button
-            className="credits-button"
-            onClick={() => setIsLoginOpen(true)}
-          >
-            Login
-          </button>
+          <TextField
+            className="textField"
+            label="Email"
+            margin="dense"
+            size="small"
+          />
+          <TextField
+            className="textField"
+            label="Password"
+            type="password"
+            margin="dense"
+            size="small"
+          />
+        </li>
+        <li>
+          <button className="credits-button">Login</button>
           <LoginModal
             open={isLoginOpen}
             handleClose={() => setIsLoginOpen(false)}
+            openRegister={() => setIsRegisterOpen(true)}
           />
         </li>
         <li>

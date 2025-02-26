@@ -4,9 +4,14 @@ import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 interface LoginModalProps {
   open: boolean;
   handleClose: () => void;
+  openRegister: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({
+  open,
+  handleClose,
+  openRegister,
+}) => {
   return (
     <Modal
       open={open}
@@ -40,7 +45,15 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, handleClose }) => {
         </Button>
         <Typography variant="body2" sx={{ mt: 2 }}>
           Don't have an account?{" "}
-          <span style={{ color: "blue", cursor: "pointer" }}>Register</span>
+          <span
+            onClick={() => {
+              handleClose();
+              openRegister();
+            }}
+            style={{ color: "blue", cursor: "pointer" }}
+          >
+            Register
+          </span>
         </Typography>
       </Box>
     </Modal>
