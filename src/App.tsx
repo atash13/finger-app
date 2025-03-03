@@ -13,23 +13,45 @@ interface Image {
 }
 
 const categories: string[] = [
-  "Exclusive",
-  "Certified",
-  "Girl",
-  "Hot Flirt",
-  "Soul Mate",
-  "Mature",
-  "New Models",
-  "Amateur",
-  "Fetish",
-  "Transgirl",
-  "Lesbian",
-  "Couple",
+  "Appearance",
+  "Age",
+  "Build",
+  "Butt Size",
+  "Breast Size",
+  "Ethnicity",
+  "Fetishes",
+  "Hair",
+  "Height",
+  "Willingness",
 ];
+
+const subcategories: Record<string, string[]> = {
+  Appearance: [
+    "Petite",
+    "Hairy Pussy",
+    "Natural",
+    "Piercing",
+    "Shaved",
+    "Stockings",
+    "Tattoo",
+    "Gloves",
+    "Masks",
+    "Rubber",
+  ],
+  Age: ["Teen", "Adult", "Mature"],
+  Build: ["Slim", "Athletic", "Curvy"],
+  "Butt Size": ["Small", "Medium", "Large"],
+  "Breast Size": ["Small", "Medium", "Large"],
+  Ethnicity: ["Asian", "Caucasian", "African"],
+  Fetishes: ["BDSM", "Roleplay", "Voyeur"],
+  Hair: ["Short", "Long", "Bald"],
+  Height: ["Short", "Average", "Tall"],
+  Willingness: ["Softcore", "Hardcore", "Extreme"],
+};
 
 const App: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
-  const [columns, setColumns] = useState<number>(7); // Varsayılan olarak 7 sütun
+  const [columns, setColumns] = useState<number>(7);
 
   useEffect(() => {
     fetch("https://picsum.photos/v2/list?page=1&limit=300")
@@ -69,18 +91,42 @@ const MainLayout: React.FC<{
   columns: number;
   setColumns: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ images, columns, setColumns }) => {
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+
+  const toggleCategory = (category: string) => {
+    setOpenCategory((prev) => (prev === category ? null : category));
+  };
+
   return (
     <>
       <div className="sidebar">
         {categories.map((category, index) => (
-          <button key={index} className="category-button">
-            {category}
-          </button>
+          <div key={index} className="category-container">
+            <button
+              className="category-button"
+              onClick={() => toggleCategory(category)}
+            >
+              {category}
+            </button>
+            {openCategory === category && (
+              <div className="subcategory-list">
+                {subcategories[category]?.map((sub, subIndex) => (
+                  <button key={subIndex} className="subcategory-button">
+                    {sub}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </div>
       <div className="main-content">
         <div className="category-name">
-          <div className="category-information">Girl</div>
+          <div className="container-gender">
+            <div className="category-information">Girl</div>
+            <div className="category-information">Boy</div>
+            <div className="category-information">Couple</div>
+          </div>
           <div className="button-container">
             <button onClick={() => setColumns(8)}>8 Kolon</button>
             <button onClick={() => setColumns(6)}>6 Kolon</button>
@@ -91,14 +137,6 @@ const MainLayout: React.FC<{
           <CardList images={images} columns={columns} />
         </Suspense>
       </div>
-      <style>
-        {`.card-list {
-            display: grid;
-            grid-template-columns: repeat(${columns}, 1fr);
-            gap: 20px;
-            padding: 20px;
-          }`}
-      </style>
     </>
   );
 };
