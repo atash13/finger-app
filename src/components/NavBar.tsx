@@ -30,10 +30,6 @@ const Navbar: React.FC = () => {
         <li onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           Live Cams
         </li>
-        <li>New Models</li>
-        <li>Promotions</li>
-        <li>Club Elite</li>
-        <li>Top Members</li>
         <li>
           <EmojiEventsIcon style={{ color: "white" }} />
         </li>
@@ -42,9 +38,6 @@ const Navbar: React.FC = () => {
         </li>
         <li>
           <FavoriteIcon />
-        </li>
-        <li>
-          <button className="credits-button">Get Credits</button>
         </li>
         <li>
           <select className="language-select">
@@ -65,7 +58,7 @@ const Navbar: React.FC = () => {
             openLogin={() => setIsLoginOpen(true)}
           />
         </li>
-        <li>
+        <li className="login-container">
           <TextField
             className="textField"
             label="Email"

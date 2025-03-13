@@ -1,9 +1,9 @@
 .navbar {
-  position: fixed !important ;
+  position: fixed !important;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px; /* Navbar yüksekliği */
+  height: 60px;
   background-color: black;
   color: white;
   display: flex;
@@ -11,7 +11,7 @@
   justify-content: space-between;
   padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* dicer elementlerin üstünde */
+  z-index: 1000;
 }
 
 .logo {
@@ -22,14 +22,21 @@
 .menu {
   display: flex;
   list-style: none;
-  gap: 20px;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  height: 100%;
+  flex-wrap: nowrap;
 }
 
 .menu li {
   cursor: pointer;
   font-size: 14px;
-  align-self: center;
-  
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
 }
 
 .actions {
@@ -41,20 +48,24 @@
 .credits-button {
   background-color: black;
   color: white;
-  border: none;
+  border: 1px solid #333;
   padding: 8px 15px;
   cursor: pointer;
   font-size: 14px;
   border-radius: 5px;
+  height: 36px;
+  display: flex;
+  align-items: center;
 }
 
 .language-select {
   padding: 5px;
   background-color: black;
   color: white;
-  border: none;
+  border: 1px solid #333;
   border-radius: 5px;
   font-size: 14px;
+  height: 36px;
 }
 
 .userButton {
@@ -65,9 +76,38 @@
   cursor: pointer;
   font-size: 14px;
   border-radius: 5px;
-  margin-right: 30px;
+  height: 36px;
+  display: flex;
+  align-items: center;
 }
 
 .textField {
   background-color: white;
+  margin-right: 5px !important;
+  margin-left: 0 !important;
+  height: 36px;
+}
+
+/* Metin alanlarını yatay hizalama için konteyner ekliyoruz */
+.login-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive tasarım için medya sorguları */
+@media (max-width: 1200px) {
+  .menu {
+    gap: 10px;
+  }
+  
+  .navbar {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .menu {
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
 }
