@@ -1,33 +1,34 @@
-import React from "react";
-import YouTube from "react-youtube";
+import React from 'react';
+import YouTube from 'react-youtube';
 
 const YouTubePlayer: React.FC = () => {
-  const videoId = "_23s2aJiXaU"; // YouTube video ID'si (watch?v= sonrası)
-
   const opts = {
-    width: '100%',
     height: '100%',
+    width: '100%',
     playerVars: {
-      autoplay: 1, // Sayfa açıldığında otomatik oynatma
-      modestbranding: 1, // YouTube logosunu gizleme
-      controls: 1, // Kullanıcı kontrollerini gösterme
+      autoplay: 1,
+      controls: 1,
+      modestbranding: 1,
       rel: 0,
       showinfo: 1,
       fs: 1,
     },
   };
 
+  const videoId = '_23s2aJiXaU';
+
   const onReady = (event: any) => {
     event.target.playVideo();
   };
 
   return (
-    <div className="youtube-container">
+    <div className="relative w-full h-full">
       <YouTube 
         videoId={videoId} 
         opts={opts} 
         onReady={onReady}
-        className="youtube-player"
+        className="absolute inset-0 w-full h-full"
+        iframeClassName="w-full h-full"
       />
     </div>
   );

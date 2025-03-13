@@ -1,8 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
-import "./CardList.css";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Image {
   id: string;
@@ -17,66 +14,50 @@ interface CardListProps {
 
 const CardList: React.FC<CardListProps> = ({ images, columns }) => {
   const navigate = useNavigate();
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const [visibleImages, setVisibleImages] = useState<number>(10);
-
-  const formatTitleForURL = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
-  };
+  const [visibleImages, setVisibleImages] = useState<number>(20);
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setVisibleImages((prev) => prev + 40);
-        }
-      },
-      { threshold: 1.0 }
-    );
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop
+        === document.documentElement.offsetHeight
+      ) {
+        setVisibleImages(prev => Math.min(prev + 20, images.length));
+      }
+    };
 
-    const loadMoreElement = document.getElementById("load-more");
-    if (loadMoreElement) {
-      observerRef.current.observe(loadMoreElement);
-    }
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [images.length]);
 
-    return () => observerRef.current?.disconnect();
-  }, []);
+  const handleCardClick = (image: Image) => {
+    navigate(`/chat/${image.id}`, { state: { image } });
+  };
 
   return (
-    <div
-      className="card-list"
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gap: "15px",
-        justifyItems: "center",
+    <div 
+      className="grid gap-4 p-4" 
+      style={{ 
+        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
       }}
     >
       {images.slice(0, visibleImages).map((image) => (
         <div
-          className="card"
           key={image.id}
-          onClick={() =>
-            navigate(`/chat/${formatTitleForURL(image.author)}`, {
-              state: image,
-            })
-          }
-          style={{ cursor: "pointer" }}
+          onClick={() => handleCardClick(image)}
+          className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
         >
-          <LazyLoadImage
+          <img
             src={image.download_url}
             alt={image.author}
-            effect="blur"
-            width="100%"
-            height="100%"
+            className="w-full h-48 object-cover"
+            loading="lazy"
           />
-          <h3>{image.author}</h3>
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+            <p className="text-white text-sm font-medium truncate">{image.author}</p>
+          </div>
         </div>
       ))}
-      <div id="load-more" style={{ height: "20px" }}></div>
     </div>
   );
 };

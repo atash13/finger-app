@@ -1,7 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
-import "./App.css";
 
 const Chat = lazy(() => import("./Chat"));
 const CardList = lazy(() => import("./components/CardList"));
@@ -61,28 +60,26 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Router>
-      <div className="app">
-        <Navbar />
-        <div className="content">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <MainLayout
-                    images={images}
-                    columns={columns}
-                    setColumns={setColumns}
-                  />
-                }
-              />
-              <Route path="/chat/:title" element={<Chat />} />
-            </Routes>
-          </Suspense>
-        </div>
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <div className="container mx-auto px-4">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainLayout
+                  images={images}
+                  columns={columns}
+                  setColumns={setColumns}
+                />
+              }
+            />
+            <Route path="/chat/:id" element={<Chat />} />
+          </Routes>
+        </Suspense>
       </div>
-    </Router>
+    </div>
   );
 };
 
@@ -98,20 +95,23 @@ const MainLayout: React.FC<{
   };
 
   return (
-    <>
-      <div className="sidebar">
+    <div className="flex">
+      <div className="w-64 bg-white shadow-lg p-4">
         {categories.map((category, index) => (
-          <div key={index} className="category-container">
+          <div key={index} className="mb-2">
             <button
-              className="category-button"
+              className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded"
               onClick={() => toggleCategory(category)}
             >
               {category}
             </button>
             {openCategory === category && (
-              <div className="subcategory-list">
+              <div className="ml-4 mt-2 space-y-2">
                 {subcategories[category]?.map((sub, subIndex) => (
-                  <button key={subIndex} className="subcategory-button">
+                  <button 
+                    key={subIndex} 
+                    className="w-full text-left px-4 py-1 text-sm hover:bg-gray-100 rounded"
+                  >
                     {sub}
                   </button>
                 ))}
@@ -120,24 +120,39 @@ const MainLayout: React.FC<{
           </div>
         ))}
       </div>
-      <div className="main-content">
-        <div className="category-name">
-          <div className="container-gender">
-            <div className="category-information">Girl</div>
-            <div className="category-information">Boy</div>
-            <div className="category-information">Couple</div>
+      <div className="flex-1 p-4">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex space-x-4">
+            <div className="px-4 py-2 bg-white rounded shadow">Girl</div>
+            <div className="px-4 py-2 bg-white rounded shadow">Boy</div>
+            <div className="px-4 py-2 bg-white rounded shadow">Couple</div>
           </div>
-          <div className="button-container">
-            <button onClick={() => setColumns(8)}>8 Kolon</button>
-            <button onClick={() => setColumns(6)}>6 Kolon</button>
-            <button onClick={() => setColumns(3)}>3 Kolon</button>
+          <div className="flex space-x-2">
+            <button 
+              onClick={() => setColumns(8)}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              8 Kolon
+            </button>
+            <button 
+              onClick={() => setColumns(6)}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              6 Kolon
+            </button>
+            <button 
+              onClick={() => setColumns(3)}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              3 Kolon
+            </button>
           </div>
         </div>
         <Suspense fallback={<div>Loading...</div>}>
           <CardList images={images} columns={columns} />
         </Suspense>
       </div>
-    </>
+    </div>
   );
 };
 

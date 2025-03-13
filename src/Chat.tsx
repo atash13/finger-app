@@ -1,88 +1,122 @@
-import React, { useState, KeyboardEvent, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import "./Chat.css";
-import YouTubePlayer from "./YouTubePlayer";
+import React, { useState, useRef, useEffect } from 'react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import YouTubePlayer from './YouTubePlayer';
+
+interface Message {
+  sender: string;
+  text: string;
+}
+
+interface LocationState {
+  image: {
+    author: string;
+    download_url: string;
+    id: string;
+  }
+}
 
 const Chat: React.FC = () => {
-  const location = useLocation();
-  const image = location.state;
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     { sender: "AnnFleminge", text: "Hello! How's your day?" },
     { sender: "You", text: "Hey! It's going great. You?" },
   ]);
-  const [newMessage, setNewMessage] = useState("");
-  const chatBoxRef = useRef<HTMLDivElement>(null);
-  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
+  const [newMessage, setNewMessage] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [userScrolled, setUserScrolled] = useState(false);
+  const location = useLocation();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const state = location.state as LocationState | null;
 
-  const isNearBottom = () => {
-    if (!chatBoxRef.current) return true;
-    const { scrollTop, scrollHeight, clientHeight } = chatBoxRef.current;
-    return scrollHeight - (scrollTop + clientHeight) < 100;
-  };
+  useEffect(() => {
+    if (!state?.image) {
+      navigate('/');
+    }
+  }, [state, navigate]);
 
-  const handleScroll = () => {
-    if (chatBoxRef.current) {
-      setShouldAutoScroll(isNearBottom());
+  const scrollToBottom = () => {
+    if (!userScrolled && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   useEffect(() => {
-    if (shouldAutoScroll && chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-    }
-  }, [messages, shouldAutoScroll]);
+    scrollToBottom();
+  }, [messages]);
 
-  const sendMessage = () => {
-    if (newMessage.trim() === "") return;
-    setMessages([...messages, { sender: "You", text: newMessage }]);
-    setNewMessage("");
-    setShouldAutoScroll(true);
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const element = e.target as HTMLDivElement;
+    const isAtBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 100;
+    setUserScrolled(!isAtBottom);
   };
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const sendMessage = () => {
+    if (newMessage.trim() === '') return;
+    setMessages([...messages, { sender: 'You', text: newMessage }]);
+    setNewMessage('');
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       sendMessage();
     }
   };
 
-  if (!image) {
-    return <h2>Resim bulunamadı!</h2>;
+  if (!state?.image) {
+    return null;
   }
 
   return (
-    <div className="chat-main-container">
-      <div className="chat-video-container">
-        <div className="video-section">
+    <div className="flex h-[calc(100vh-60px)]">
+      <div className="flex-[2] min-w-0 relative bg-black">
+        <div className="w-full h-full">
           <YouTubePlayer />
-          <div className="video-author">
-            {image?.author || "Unknown Author"}
+          <div className="absolute top-2.5 left-2.5 bg-black/50 text-white px-2.5 py-1.5 rounded z-10">
+            {state.image.author || "Unknown Author"}
           </div>
         </div>
-        <div className="chat-section">
-          <h4 className="chat-title">Live Chat</h4>
-          <div 
-            className="chat-box" 
-            ref={chatBoxRef}
-            onScroll={handleScroll}
-          >
-            {messages.map((msg, index) => (
-              <div 
-                key={index} 
-                className={`chat-message ${msg.sender === "You" ? "own-message" : ""}`}
+      </div>
+      <div className="flex-1 min-w-0 flex flex-col bg-gray-100">
+        <div 
+          ref={chatContainerRef}
+          className="flex-1 overflow-y-auto p-4 space-y-4"
+          onScroll={handleScroll}
+        >
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex ${message.sender === 'You' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div
+                className={`max-w-[70%] rounded-lg p-3 ${
+                  message.sender === 'You'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white text-gray-800'
+                }`}
               >
-                <strong>{msg.sender}:</strong> {msg.text}
+                <div className="font-semibold mb-1">{message.sender}</div>
+                <div className="break-words">{message.text}</div>
               </div>
-            ))}
-          </div>
-          <div className="input-container">
-            <input
-              className="chat-input"
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+        <div className="p-4 bg-white border-t">
+          <div className="flex gap-2">
+            <textarea
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type a message..."
+              className="flex-1 resize-none rounded-lg border border-gray-300 p-2 focus:outline-none focus:border-blue-500"
+              rows={2}
             />
-            <button onClick={sendMessage} className="send-button">
+            <button
+              onClick={sendMessage}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
               Send
             </button>
           </div>
