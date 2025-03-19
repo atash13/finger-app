@@ -37,15 +37,15 @@ const subcategories: Record<string, string[]> = {
     "Masks",
     "Rubber",
   ],
-  Age: ["Teen", "Adult", "Mature"],
-  Build: ["Slim", "Athletic", "Curvy"],
-  "Butt Size": ["Small", "Medium", "Large"],
-  "Breast Size": ["Small", "Medium", "Large"],
-  Ethnicity: ["Asian", "Caucasian", "African"],
-  Fetishes: ["BDSM", "Roleplay", "Voyeur"],
-  Hair: ["Short", "Long", "Bald"],
-  Height: ["Short", "Average", "Tall"],
-  Willingness: ["Softcore", "Hardcore", "Extreme"],
+  Age: ["18-22", "22-30", "30-40", "40+"],
+  Build: ["Skinny", "Athletic","Medium", "Curvy", "BBW"],
+  "Butt Size": ["Small", "Normal", "Big", "Huge"],
+  "Breast Size": ["Tiny", "Normal", "Big", "Huge"],
+  Ethnicity: ["Asian", "Ebony", "Latina", "White"],
+  Fetishes: ["Anal", "Ball Busting", "BDSM", "CBT", "Chastity Training", "Cuckolding", "Dominant", "Feminisation", "Fetish Toys", "Foot Fetish", "Giantees", "High Heels", "JOI", "Latex", "Panty Fetish", "Roleplay", "Smoking", "SPH", "Spanking", "Submissive"],
+  Hair: ["Black Hair", "Blonde", "Brunette", "Redhead", "Long", "short"],
+  Height: ["<155", "155-160", "160-170", "170+"],
+  Willingness: ["ASMR", "Close-up", "Cosplay", "Deepthroat", "Double Penetration", "Finger Play", "POV", "Squirt","Striptease", "Twerk"],
 };
 
 const App: React.FC = () => {
@@ -53,7 +53,7 @@ const App: React.FC = () => {
   const [columns, setColumns] = useState<number>(7);
 
   useEffect(() => {
-    fetch("https://picsum.photos/v2/list?page=1&limit=300")
+    fetch("https://picsum.photos/v2/list?page=1&limit=700")
       .then((response) => response.json())
       .then((data) => setImages(data))
       .catch((error) => console.error("Error fetching images:", error));
