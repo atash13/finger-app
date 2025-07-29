@@ -1,0 +1,32 @@
+.navbar {
+  height: 60px;
+  background-color: #282a36;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #444;
+}
+
+.navbar-left h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-username {
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+.navbar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
