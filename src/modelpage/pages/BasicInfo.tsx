@@ -22,7 +22,20 @@ const BasicInfo: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSave = (updatedInfo: Record<string, string>) => {
-    setInfo(updatedInfo as typeof initialInfo);
+    const typedInfo = {
+      displayName: updatedInfo.displayName || "",
+      firstName: updatedInfo.firstName || "",
+      lastName: updatedInfo.lastName || "",
+      dob: updatedInfo.dob || "",
+      displayAge: updatedInfo.displayAge || "",
+      gender: updatedInfo.gender || "",
+      address: updatedInfo.address || "",
+      postalCode: updatedInfo.postalCode || "",
+      city: updatedInfo.city || "",
+      state: updatedInfo.state || "",
+      country: updatedInfo.country || "",
+    };
+    setInfo(typedInfo);
     setIsModalOpen(false);
   };
 
