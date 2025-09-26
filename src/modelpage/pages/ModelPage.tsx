@@ -7,6 +7,8 @@ import BasicInfo from "./BasicInfo"; // 📌 Bu önemli: BasicInfo bileşenini e
 import "../ModelNavbar.css";
 import "../ModelSidebar.css";
 import AdditionalInfoView from "./additionalInfo/AdditionalInfoView";
+import Settings from "./settings/Settings";
+import StreamSettings from "./streamSettings/StreamSettings";
 
 const ModelPage: React.FC = () => {
   return (
@@ -20,6 +22,11 @@ const ModelPage: React.FC = () => {
             <Route
               path="/myprofile/additionalInfo"
               element={<AdditionalInfoView />}
+            />
+            <Route path="/myprofile/settings" element={<Settings />} />
+            <Route
+              path="/myprofile/streamSettings"
+              element={<StreamSettings />}
             />
             {/* Diğer alt route'lar buraya eklenebilir */}
             <Route

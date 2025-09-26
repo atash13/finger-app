@@ -1,0 +1,73 @@
+.stream-settings {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.header button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header button:hover {
+  background-color: #0056b3;
+}
+
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.settings-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.label {
+  width: 60%;
+  font-weight: 500;
+}
+
+.value {
+  width: 40%;
+  text-align: right;
+}
+
+.value input {
+  width: 80px;
+  padding: 4px;
+  font-size: 14px;
+}
+
+.switch {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.switch.on {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.switch.off {
+  background-color: #dc3545;
+  color: #fff;
+}
