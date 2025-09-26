@@ -56,7 +56,7 @@ const CardList: React.FC<CardListProps> = ({ images, columns }) => {
         >
           <div className="w-full h-48 bg-black">
             {hoveredId === image.id ? (
-              <YouTubePlayer videoId={image.videoId} />
+              <YouTubePlayer videoId={image.videoId ?? ""} />
             ) : (
               <img
                 src={image.download_url}

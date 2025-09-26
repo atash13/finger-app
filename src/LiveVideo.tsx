@@ -23,9 +23,11 @@ const LiveVideo: React.FC = () => {
   if (!token) return <p>Loading...</p>;
 
   return (
-    <LiveKitRoom serverUrl={serverUrl} token={token}>
-      <VideoConference />
-    </LiveKitRoom>
+    <>
+      <LiveKitRoom serverUrl={serverUrl} token={token}>
+        <VideoConference />
+      </LiveKitRoom>
+    </>
   );
 };
 

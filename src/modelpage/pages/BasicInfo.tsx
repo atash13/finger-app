@@ -21,8 +21,8 @@ const BasicInfo: React.FC = () => {
   const [info, setInfo] = useState(initialInfo);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSave = (updatedInfo: typeof initialInfo) => {
-    setInfo(updatedInfo);
+  const handleSave = (updatedInfo: Record<string, string>) => {
+    setInfo(updatedInfo as typeof initialInfo);
     setIsModalOpen(false);
   };
 
@@ -58,7 +58,7 @@ const BasicInfo: React.FC = () => {
         <Modal
           info={info}
           onCancel={() => setIsModalOpen(false)}
-          onSave={handleSave}
+          onSave={handleSave as (data: Record<string, string>) => void}
         />
       )}
     </div>
