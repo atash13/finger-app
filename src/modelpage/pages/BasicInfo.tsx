@@ -3,18 +3,17 @@ import styles from "./BasicInfo.module.css";
 import Modal from "./EditModal"; // popup bileşeni
 
 const initialInfo = {
-  displayName: "EmmaRey",
-  firstName: "Carmen-Daniela",
-  lastName: "Brinza",
-  dob: "1993-11-18",
+  displayName: "Oksana",
+  firstName: "Oksana",
+  lastName: "Kleopatra",
+  dob: "1999-01-01",
   displayAge: "Not set",
   gender: "Female",
-  address:
-    "Jud.BR Mun. Braila Sat. Sutesti (com. Sutesti) Str. Crinului nr. 38 A",
-  postalCode: "800624",
-  city: "Braila",
-  state: "Romania",
-  country: "Romania",
+  address: "Kusu Kalkmaz Sokak No: 4 Daire: 5, Istanbul, Turkey",
+  postalCode: "34000",
+  city: "Istanbul",
+  state: "Istanbul",
+  country: "Turkey",
 };
 
 const BasicInfo: React.FC = () => {
