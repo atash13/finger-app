@@ -1,0 +1,19 @@
+FanClubReport.css
+.FanClubReport-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.FanClubReport-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.FanClubReport-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}

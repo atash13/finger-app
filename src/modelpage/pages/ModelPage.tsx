@@ -9,6 +9,18 @@ import "../ModelSidebar.css";
 import AdditionalInfoView from "./additionalInfo/AdditionalInfoView";
 import Settings from "./settings/Settings";
 import StreamSettings from "./streamSettings/StreamSettings";
+import AccountSettings from "./accountSettings/AccountSettings";
+import Messenger from "./messenger/Messenger";
+import Photos from "./media/Photos/Photos";
+import Videos from "./media/Videos/Videos";
+import RecordedShows from "./media/RecordedShows/RecordedShows";
+import BannedUsers from "./members/bannedUsers/BannedUsers";
+import KickedUsers from "./members/kickedUsers/KickedUsers";
+import TopSpenders from "./members/topSpenders/TopSpenders";
+import Earnings from "./mystats/earnings/Earnings";
+import ActivityReport from "./mystats/activityReport/ActivityReport";
+import FanClubReport from "./mystats/fanClubReport/FanClubReport";
+import ReferralProgramReport from "./mystats/referralProgramReport/ReferralProgramReport";
 
 const ModelPage: React.FC = () => {
   return (
@@ -28,6 +40,29 @@ const ModelPage: React.FC = () => {
               path="/myprofile/streamSettings"
               element={<StreamSettings />}
             />
+            <Route
+              path="/myprofile/accountInfo"
+              element={<AccountSettings />}
+            />
+            <Route path="/messenger" element={<Messenger />} />"
+            <Route path="/media/photos" element={<Photos />} />
+            <Route path="/media/videos" element={<Videos />} />
+            <Route path="/media/recordedShows" element={<RecordedShows />} />
+            <Route path="/members/bannedUsers" element={<BannedUsers />} />
+            <Route path="/members/kickedUsers" element={<KickedUsers />} />
+            <Route path="/members/topSpenders" element={<TopSpenders />} />
+            <Route path="/mystats/earnings" element={<Earnings />} />
+            <Route
+              path="/mystats/activityReport"
+              element={<ActivityReport />}
+            />
+            <Route path="/mystats/fanClubReports" element={<FanClubReport />} />
+            <Route
+              path="/mystats/referralProgramReport"
+              element={<ReferralProgramReport />}
+            />
+            <Route path="/support" element={<div>Support Page</div>} />
+            <Route path="/termsofuse" element={<div>Terms of Use Page</div>} />
             {/* Diğer alt route'lar buraya eklenebilir */}
             <Route
               path="*"
