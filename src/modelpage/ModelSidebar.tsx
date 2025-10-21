@@ -60,7 +60,7 @@ const ModelSidebar: React.FC = () => {
 
   return (
     <div className="model-sidebar">
-      <div className="logo">LiveCamMates</div>
+      <div className="logo">Mua Cam</div>
       <nav>
         {menuItems.map((item) =>
           item.children ? (
