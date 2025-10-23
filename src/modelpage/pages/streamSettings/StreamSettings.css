@@ -71,3 +71,35 @@
   background-color: #dc3545;
   color: #fff;
 }
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepper .price {
+  font-weight: 600;
+  min-width: 50px;
+  text-align: right;
+}
+
+.stepper .buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.stepper .buttons button {
+  background: #f2f2f2;
+  border: none;
+  padding: 2px 6px;
+  margin: 1px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.stepper .buttons button:hover {
+  background: #e0e0e0;
+}

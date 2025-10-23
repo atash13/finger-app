@@ -40,6 +40,22 @@ const StreamSettings: React.FC = () => {
     setFormData(updated);
   };
 
+  const handleIncrease = (index: number) => {
+    const updated = [...formData];
+    const newValue = parseFloat(
+      (parseFloat(updated[index].value) + 0.01).toFixed(2)
+    );
+    updated[index].value = newValue.toFixed(2);
+    setFormData(updated);
+  };
+
+  const handleDecrease = (index: number) => {
+    const updated = [...formData];
+    const newValue = Math.max(0, parseFloat(updated[index].value) - 0.01);
+    updated[index].value = newValue.toFixed(2);
+    setFormData(updated);
+  };
+
   const toggleSwitch = (index: number) => {
     const updated = [...formData];
     updated[index].value =
@@ -75,11 +91,15 @@ const StreamSettings: React.FC = () => {
               <td className="value">
                 {editing ? (
                   item.type === "input" ? (
-                    <input
-                      type="text"
-                      value={item.value}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                    />
+                    <div className="stepper">
+                      <span className="price">
+                        ${parseFloat(item.value).toFixed(2)}
+                      </span>
+                      <div className="buttons">
+                        <button onClick={() => handleIncrease(index)}>▲</button>
+                        <button onClick={() => handleDecrease(index)}>▼</button>
+                      </div>
+                    </div>
                   ) : (
                     <button
                       type="button"
