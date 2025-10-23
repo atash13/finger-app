@@ -6,7 +6,7 @@ const initialInfo = {
   displayName: "Oksana",
   firstName: "Oksana",
   lastName: "Kleopatra",
-  dob: "2001-01-01",
+  dob: "2001-01-02",
   displayAge: "Not set",
   gender: "Female",
   address: "Kusu Kalkmaz Sokak No: 4 Daire: 5, Istanbul, Turkey",
